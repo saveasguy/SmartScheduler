@@ -1,12 +1,26 @@
-import tkinter as tk
+from scheduler import controllers
+from scheduler import models
+from scheduler import views
 
-import scheduler.views as views
+
+class App(controllers.IApp):
+    def __init__(self):
+        super().__init__()
+        self.title("Smart Scheduler")
+        self.geometry("300x300")
+
+        self.model = models.AppLogicModel()
+        self.login_view = views.LoginView(
+            self, controllers.LoginController(self)
+        )
+        self.login_view.pack()
+
+    def get_model(self) -> models.AppLogicModel:
+        return self.model
 
 
 def main():
-    app = tk.Tk()
-    login = views.LoginView(app, None)
-    login.pack()
+    app = App()
     app.mainloop()
 
 
