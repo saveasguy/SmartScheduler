@@ -5,15 +5,15 @@ name = "pypi"
 
 [packages]
 yougile-api = "*"
-black = "*"
-flake8 = "*"
 customtkinter = "*"
-isort = "*"
-doit = "*"
-sphinx = "*"
-docformatter = "*"
 
 [dev-packages]
+black = "*"
+flake8 = "*"
+isort = "*"
+doit = "*"
+docformatter = "*"
+sphinx = "*"
 
 [requires]
 python_version = "3.10"
