@@ -5,11 +5,11 @@ def task_lint():
     """Run linter on the project using flake8, black and isort."""
     yield {
         "name": "flake8",
-        "actions": ["flake8"],
+        "actions": ["flake8 ."],
     }
     yield {
         "name": "black-check",
-        "actions": ["black  --check ."],
+        "actions": ["black --check ."],
     }
     yield {
         "name": "isort-check",

@@ -5,6 +5,3 @@ target-version = ['py310']
 [tool.isort]
 profile = "hug"
 src_paths = ["scheduler", "scheduler.py", "dodo.py"]
-
-[tool.pydocstyle]
-ignore = "D1" # Disable "Missing *" errors

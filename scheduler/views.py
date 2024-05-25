@@ -151,3 +151,6 @@ class BoardView(tk.CTkFrame):
 
     def display_internal_error(self):
         self.error.set("Internal error!")
+
+    def display_no_board_chosen(self):
+        self.error.set("Board is not chosen!")

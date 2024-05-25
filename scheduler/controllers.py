@@ -51,10 +51,10 @@ def find_by_title(
 ) -> models.Project | None:
     """Get project with a name mathes the given one.
 
-    :param projects: list of projects
-    :type projects: List[models.Project]
-    :param project_name: searched project_name
-    :type project_name: str
+    :param entities: list of projects
+    :type entities: List[models.Project | models.Board]
+    :param title: searched project_name
+    :type title: str
     :raises RuntimeError: raises when there are two projects with the
         same name
     """
@@ -89,6 +89,9 @@ class BoardController(views.IBoardController):
         return [board.title for board in self.boards]
 
     def on_choose_board(self, view: views.BoardView, board_name: str):
+        if not board_name:
+            view.display_no_board_chosen()
+            return
         try:
             all_tasks = chain.from_iterable(
                 self.app.get_model().get_tasks_by_board(

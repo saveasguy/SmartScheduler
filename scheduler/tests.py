@@ -47,7 +47,7 @@ class FindByTitleTests(unittest.TestCase):
         self.assertTrue(multiple_projects_detected)
         no_projects_detected = False
         try:
-            controllers.find_by_title(projects, "prj1")
+            controllers.find_by_title(projects, "prj2")
         except Exception:
             no_projects_detected = True
         self.assertTrue(no_projects_detected)
@@ -65,7 +65,7 @@ class FindByTitleTests(unittest.TestCase):
         self.assertTrue(multiple_boards_detected)
         no_boards_detected = False
         try:
-            controllers.find_by_title(boards, "board1")
+            controllers.find_by_title(boards, "board2")
         except Exception:
             no_boards_detected = True
         self.assertTrue(no_boards_detected)
