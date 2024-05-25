@@ -1,9 +1,9 @@
-from customtkinter import CTk
 from itertools import chain
-
-from scheduler import models
-from scheduler import views
 from typing import List
+
+from customtkinter import CTk
+
+from scheduler import models, views
 
 
 class IApp(CTk):

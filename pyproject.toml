@@ -1,3 +1,7 @@
 [tool.black]
 line-length = 79
 target-version = ['py310']
+
+[tool.isort]
+profile = "hug"
+src_paths = ["scheduler", "scheduler.py"]

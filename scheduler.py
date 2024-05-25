@@ -1,8 +1,6 @@
 from customtkinter import CTkFrame
 
-from scheduler import controllers
-from scheduler import models
-from scheduler import views
+from scheduler import controllers, models, views
 
 
 class App(controllers.IApp):

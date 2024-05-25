@@ -1,6 +1,7 @@
+from typing import List
+
 import yougile
 import yougile.models as models
-from typing import List
 
 
 class Project:
