@@ -22,6 +22,19 @@ def task_format():
     return {"actions": ["isort .", "black ."]}
 
 
+def task_docupdate():
+    """update documentation"""
+    return {"actions": ["sphinx-apidoc -f -o docs/source scheduler"]}
+
+
+def task_doc():
+    """build documentation"""
+    return {
+        "actions": ["sphinx-build -M html docs/source docs/build"],
+        "task_dep": ["docupdate"],
+    }
+
+
 def task_test():
     """run unit tests"""
     return {"actions": ["python3 -m unittest discover"]}
