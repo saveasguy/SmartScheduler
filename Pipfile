@@ -11,6 +11,7 @@ customtkinter = "*"
 isort = "*"
 doit = "*"
 sphinx = "*"
+pydocstyle = "*"
 
 [dev-packages]
 
