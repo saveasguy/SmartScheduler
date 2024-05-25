@@ -1,6 +1,6 @@
-import customtkinter as tk
-
 from typing import List
+
+import customtkinter as tk
 
 
 class ILoginController:

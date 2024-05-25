@@ -8,6 +8,7 @@ yougile-api = "*"
 black = "*"
 flake8 = "*"
 customtkinter = "*"
+isort = "*"
 
 [dev-packages]
 
