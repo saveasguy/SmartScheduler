@@ -26,43 +26,41 @@ class LoginView(tk.CTkFrame):
         self.error = tk.StringVar()
 
         # GUI setup
-        company_label = tk.CTkLabel(self, text="Company", font=HEADER2_FONT)
-        company_label.place(rely=0.1, relwidth=1)
+        tk.CTkLabel(self, text="Company", font=HEADER2_FONT).place(
+            rely=0.1, relwidth=1
+        )
 
-        company_entry = tk.CTkEntry(
+        tk.CTkEntry(
             self, textvariable=self.company, font=PARAGRAPH_FONT
-        )
-        company_entry.place(rely=0.16, relx=0.25, relwidth=0.5)
+        ).place(rely=0.16, relx=0.25, relwidth=0.5)
 
-        user_label = tk.CTkLabel(self, text="Username", font=HEADER2_FONT)
-        user_label.place(rely=0.26, relwidth=1)
-        user_entry = tk.CTkEntry(
-            self, textvariable=self.user, font=PARAGRAPH_FONT
+        tk.CTkLabel(self, text="Username", font=HEADER2_FONT).place(
+            rely=0.26, relwidth=1
         )
-        user_entry.place(rely=0.32, relx=0.25, relwidth=0.5)
+        tk.CTkEntry(self, textvariable=self.user, font=PARAGRAPH_FONT).place(
+            rely=0.32, relx=0.25, relwidth=0.5
+        )
 
-        password_label = tk.CTkLabel(self, text="Password", font=HEADER2_FONT)
-        password_label.place(rely=0.42, relwidth=1)
-        password_entry = tk.CTkEntry(
+        tk.CTkLabel(self, text="Password", font=HEADER2_FONT).place(
+            rely=0.42, relwidth=1
+        )
+        tk.CTkEntry(
             self, show="*", textvariable=self.password, font=PARAGRAPH_FONT
-        )
-        password_entry.place(rely=0.48, relx=0.25, relwidth=0.5)
+        ).place(rely=0.48, relx=0.25, relwidth=0.5)
 
-        login_button = tk.CTkButton(
+        tk.CTkButton(
             self,
             text="Login",
             command=lambda: controller.on_auth(self),
             font=PARAGRAPH_FONT,
-        )
-        login_button.place(rely=0.58, relx=0.3, relwidth=0.4)
+        ).place(rely=0.58, relx=0.3, relwidth=0.4)
 
-        error_label = tk.CTkLabel(
+        tk.CTkLabel(
             self,
             textvariable=self.error,
             font=PARAGRAPH_FONT,
             text_color="red",
-        )
-        error_label.place(rely=0.68, relwidth=1)
+        ).place(rely=0.68, relwidth=1)
 
     def handle_authorization_error(self):
         self.error.set("Failed to authorize!")
@@ -72,10 +70,12 @@ class IBoardController:
     def get_project_names(self) -> List[str]:
         raise NotImplementedError()
 
-    def get_board_names_by_project_name(self, project_name: str) -> List[str]:
+    def get_board_names_by_project_name(
+        self, view, project_name: str
+    ) -> List[str]:
         raise NotImplementedError()
 
-    def on_choose_board(self, project: str, board: str):
+    def on_choose_board(self, view, board: str):
         raise NotImplementedError()
 
 
@@ -87,12 +87,14 @@ class BoardView(tk.CTkFrame):
         PARAGRAPH_FONT = tk.CTkFont(size=16)
 
         self.controller = controller
+        self.error = ""
         self.selected_project = None
         self.selected_board = None
 
         # GUI setup
-        projects_label = tk.CTkLabel(self, text="Project", font=HEADER2_FONT)
-        projects_label.place(rely=0.2, relwidth=1)
+        tk.CTkLabel(self, text="Project", font=HEADER2_FONT).place(
+            rely=0.2, relwidth=1
+        )
         self.projects_combo = tk.CTkComboBox(
             self,
             values=controller.get_project_names(),
@@ -103,8 +105,9 @@ class BoardView(tk.CTkFrame):
         self.projects_combo.set("")
         self.projects_combo.place(rely=0.26, relx=0.3, relwidth=0.4)
 
-        boards_label = tk.CTkLabel(self, text="Board", font=HEADER2_FONT)
-        boards_label.place(rely=0.36, relwidth=1)
+        tk.CTkLabel(self, text="Board", font=HEADER2_FONT).place(
+            rely=0.36, relwidth=1
+        )
         self.boards_combo = tk.CTkComboBox(
             self,
             values=[],
@@ -119,21 +122,21 @@ class BoardView(tk.CTkFrame):
             relwidth=0.4,
         )
 
-        choose_button = tk.CTkButton(
+        tk.CTkButton(
             self,
             text="Choose",
             command=lambda: self.controller.on_choose_board(
                 self.selected_board
             ),
             font=HEADER2_FONT,
-        )
-        choose_button.place(rely=0.52, relx=0.3, relwidth=0.4)
+        ).place(rely=0.52, relx=0.3, relwidth=0.4)
 
-    def update_projects_list(self):
-        self.projects_combo.configure(
-            values=self.controller.get_project_names()
-        )
-        self.boards_combo.configure(values=[])
+        tk.CTkLabel(
+            self,
+            textvariable=self.error,
+            font=PARAGRAPH_FONT,
+            text_color="red",
+        ).place(rely=0.62, relwidth=1)
 
     def on_project_choice(self, choice):
         """Display list of boards connected to project"""
@@ -146,3 +149,6 @@ class BoardView(tk.CTkFrame):
 
     def on_board_choice(self, choice):
         self.selected_board = choice
+
+    def display_internal_error(self):
+        self.error = "Internal error!"

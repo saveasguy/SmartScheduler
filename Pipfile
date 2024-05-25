@@ -9,6 +9,7 @@ black = "*"
 flake8 = "*"
 customtkinter = "*"
 isort = "*"
+doit = "*"
 
 [dev-packages]
 

@@ -7,7 +7,7 @@ class App(controllers.IApp):
     def __init__(self):
         super().__init__()
         self.title("Smart Scheduler")
-        self.geometry("500x500")
+        self.minsize(512, 512)
 
         self.frame: CTkFrame | None = None
         self.model = models.AppLogicModel()
