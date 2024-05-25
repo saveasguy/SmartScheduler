@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b8fbc171c24250597d41117d51b7a6be949c421f45e3adc5638f4d799fff3cd3"
+            "sha256": "bcd4e10c22a3ed23a4f61146d224984cde5625fa5bd78573a85c14c21778f041"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -205,6 +205,15 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==0.8.0"
+        },
+        "docformatter": {
+            "hashes": [
+                "sha256:a24f5545ed1f30af00d106f5d85dc2fce4959295687c24c8f39f5263afaf9186",
+                "sha256:ffed3da0daffa2e77f80ccba4f0e50bfa2755e1c10e130102571c890a61b246e"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "version": "==1.7.5"
         },
         "docutils": {
             "hashes": [
@@ -480,15 +489,6 @@
             "markers": "python_version >= '3.8'",
             "version": "==2.18.2"
         },
-        "pydocstyle": {
-            "hashes": [
-                "sha256:118762d452a49d6b05e194ef344a55822987a462831ade91ec5c06fd2169d019",
-                "sha256:7ce43f0c0ac87b07494eb9c0b462c0b73e6ff276807f204d6b53edc72b7e44e1"
-            ],
-            "index": "pypi",
-            "markers": "python_version >= '3.6'",
-            "version": "==6.3.0"
-        },
         "pyflakes": {
             "hashes": [
                 "sha256:1c61603ff154621fb2a9172037d84dca3500def8c8b630657d1701f026f8af3f",
@@ -592,6 +592,12 @@
             ],
             "markers": "python_version < '3.11'",
             "version": "==4.12.0"
+        },
+        "untokenize": {
+            "hashes": [
+                "sha256:3865dbbbb8efb4bb5eaa72f1be7f3e0be00ea8b7f125c69cbd1f5fda926f37a2"
+            ],
+            "version": "==0.1.1"
         },
         "urllib3": {
             "hashes": [

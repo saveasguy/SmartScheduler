@@ -4,9 +4,8 @@ import customtkinter as tk
 
 
 class ILoginController:
-    """Interface class for login controller,
-    which requires to implement on_auth method
-    """
+    """Interface class for login controller, which requires to implement
+    on_auth method."""
 
     def on_auth(self, view):
         raise NotImplementedError()
@@ -139,7 +138,7 @@ class BoardView(tk.CTkFrame):
         ).place(rely=0.62, relwidth=1)
 
     def on_project_choice(self, choice):
-        """Display list of boards connected to project"""
+        """Display list of boards connected to project."""
         self.selected_project = choice
         self.boards_combo.configure(
             values=self.controller.get_board_names_by_project_name(

@@ -14,7 +14,7 @@ class IApp(CTk):
         raise NotImplementedError()
 
     def show_view(self, id: str):
-        """Show the view with the given id
+        """Show the view with the given id.
 
         :param id: Id of the view
         :type id: str
@@ -27,9 +27,9 @@ class LoginController(views.ILoginController):
         self.app = app
 
     def on_auth(self, view: views.LoginView):
-        """Callback which is invoked when login button is pressed.
-        If login failed, call views method to display authorization failure.
-        Otherwise show page allowing to choose project and board
+        """Callback which is invoked when login button is pressed. If login
+        failed, call views method to display authorization failure. Otherwise
+        show page allowing to choose project and board.
 
         :param view: Login page, which should call this method.
         :type view: views.LoginView
@@ -49,13 +49,14 @@ class LoginController(views.ILoginController):
 def find_by_title(
     entities: List[models.Project | models.Board], title: str
 ) -> models.Project | None:
-    """Get project with a name mathes the given one
+    """Get project with a name mathes the given one.
 
     :param projects: list of projects
     :type projects: List[models.Project]
     :param project_name: searched project_name
     :type project_name: str
-    :raises RuntimeError: raises when there are two projects with the same name
+    :raises RuntimeError: raises when there are two projects with the
+        same name
     """
     found_projects = [ent for ent in entities if ent.title == title]
     if len(found_projects) != 1:

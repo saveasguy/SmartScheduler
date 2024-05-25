@@ -2,7 +2,7 @@ DOIT_CONFIG = {"default_tasks": ["lint", "test"]}
 
 
 def task_lint():
-    """run linter on the project using flake8, black and isort"""
+    """Run linter on the project using flake8, black and isort."""
     yield {
         "name": "flake8",
         "actions": ["flake8"],
@@ -15,20 +15,24 @@ def task_lint():
         "name": "isort-check",
         "actions": ["isort --check ."],
     }
+    yield {
+        "name": "docformatter-check",
+        "actions": ["docformatter --recursive --check ."],
+    }
 
 
 def task_format():
-    """format the code"""
-    return {"actions": ["isort .", "black ."]}
+    """Format the code."""
+    return {"actions": ["isort .", "black .", "docformatter --recursive ."]}
 
 
 def task_docupdate():
-    """update documentation"""
+    """Update documentation."""
     return {"actions": ["sphinx-apidoc -f -o docs/source scheduler"]}
 
 
 def task_doc():
-    """build documentation"""
+    """Build documentation."""
     return {
         "actions": ["sphinx-build -M html docs/source docs/build"],
         "task_dep": ["docupdate"],
@@ -36,5 +40,5 @@ def task_doc():
 
 
 def task_test():
-    """run unit tests"""
+    """Run unit tests."""
     return {"actions": ["python3 -m unittest discover"]}

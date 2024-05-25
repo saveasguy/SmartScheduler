@@ -40,7 +40,7 @@ class AppLogicModel:
         self.token = ""
 
     def auth(self, login: str, password: str, company_name: str):
-        """Authorize to YouGile
+        """Authorize to YouGile.
 
         :param login: User login
         :type login: str
@@ -71,7 +71,7 @@ class AppLogicModel:
         self.token = response.json()["key"]
 
     def get_projects(self) -> List[Project]:
-        """Get project list
+        """Get project list.
 
         :raises ValueError:
         :return: Project list
@@ -92,7 +92,7 @@ class AppLogicModel:
         return projects
 
     def get_boards_by_project(self, project: Project) -> List[Board]:
-        """Get boards list by project
+        """Get boards list by project.
 
         :param project: YouGile project
         :type project: Project
@@ -117,7 +117,7 @@ class AppLogicModel:
         return boards
 
     def get_tasks_by_board(self, board: Board) -> List[Task]:
-        """Get tasks list from all columns of board
+        """Get tasks list from all columns of board.
 
         :param board: YouGile board
         :type board: Board
