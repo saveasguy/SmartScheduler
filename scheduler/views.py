@@ -87,7 +87,7 @@ class BoardView(tk.CTkFrame):
         PARAGRAPH_FONT = tk.CTkFont(size=16)
 
         self.controller = controller
-        self.error = ""
+        self.error = tk.StringVar()
         self.selected_project = None
         self.selected_board = None
 
@@ -126,7 +126,7 @@ class BoardView(tk.CTkFrame):
             self,
             text="Choose",
             command=lambda: self.controller.on_choose_board(
-                self.selected_board
+                self, self.selected_board
             ),
             font=HEADER2_FONT,
         ).place(rely=0.52, relx=0.3, relwidth=0.4)
@@ -143,7 +143,7 @@ class BoardView(tk.CTkFrame):
         self.selected_project = choice
         self.boards_combo.configure(
             values=self.controller.get_board_names_by_project_name(
-                self.selected_project
+                self, self.selected_project
             )
         )
 
@@ -151,4 +151,4 @@ class BoardView(tk.CTkFrame):
         self.selected_board = choice
 
     def display_internal_error(self):
-        self.error = "Internal error!"
+        self.error.set("Internal error!")
