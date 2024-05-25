@@ -1,4 +1,4 @@
-DOIT_CONFIG = {"default_tasks": ["lint"]}
+DOIT_CONFIG = {"default_tasks": ["lint", "test"]}
 
 
 def task_lint():
@@ -20,3 +20,8 @@ def task_lint():
 def task_format():
     """format the code"""
     return {"actions": ["isort .", "black ."]}
+
+
+def task_test():
+    """run unit tests"""
+    return {"actions": ["python3 -m unittest discover"]}

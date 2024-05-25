@@ -46,6 +46,25 @@ class LoginController(views.ILoginController):
         self.app.show_view("boards")
 
 
+def find_by_title(
+    entities: List[models.Project | models.Board], title: str
+) -> models.Project | None:
+    """Get project with a name mathes the given one
+
+    :param projects: list of projects
+    :type projects: List[models.Project]
+    :param project_name: searched project_name
+    :type project_name: str
+    :raises RuntimeError: raises when there are two projects with the same name
+    """
+    found_projects = [ent for ent in entities if ent.title == title]
+    if len(found_projects) != 1:
+        raise RuntimeError(
+            "No projects found or unexpected projects having the same names"
+        )
+    return found_projects[0]
+
+
 class BoardController(views.IBoardController):
     def __init__(self, app: IApp):
         self.app = app
@@ -56,28 +75,26 @@ class BoardController(views.IBoardController):
         self.projects = self.app.get_model().get_projects()
         return [prj.title for prj in self.projects]
 
-    def get_board_names_by_project_name(self, project_name: str) -> List[str]:
-        found_projects = [
-            prj for prj in self.projects if prj.title == project_name
-        ]
-        if len(found_projects) != 1:
-            raise RuntimeError(
-                "Zero projects found or unexpected projects with the same name"
+    def get_board_names_by_project_name(
+        self, view: views.BoardView, project_name: str
+    ) -> List[str]:
+        try:
+            self.boards = self.app.get_model().get_boards_by_project(
+                find_by_title(self.projects, project_name)
             )
-        self.boards = self.app.get_model().get_boards_by_project(
-            found_projects[0]
-        )
+        except Exception:
+            view.display_internal_error()
+            return []
         return [board.title for board in self.boards]
 
-    def on_choose_board(self, board_name: str):
-        found_boards = [
-            board for board in self.boards if board.title == board_name
-        ]
-        if len(found_boards) != 1:
-            raise RuntimeError(
-                "Zero boards found or unexpected boards with the same name"
+    def on_choose_board(self, view: views.BoardView, board_name: str):
+        try:
+            all_tasks = chain.from_iterable(
+                self.app.get_model().get_tasks_by_board(
+                    find_by_title(self.boards, board_name)
+                )
             )
-        all_tasks = chain.from_iterable(
-            self.app.get_model().get_tasks_by_board(found_boards[0])
-        )
+        except Exception:
+            view.display_internal_error()
+            return
         print("\n".join(task.title for task in all_tasks))
