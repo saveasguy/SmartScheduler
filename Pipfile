@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 yougile-api = "*"
 customtkinter = "*"
+tkcalendar = "*"
 
 [dev-packages]
 black = "*"

@@ -1,4 +1,3 @@
-from itertools import chain
 from typing import List
 
 from customtkinter import CTk
@@ -93,12 +92,10 @@ class BoardController(views.IBoardController):
             view.display_no_board_chosen()
             return
         try:
-            all_tasks = chain.from_iterable(
-                self.app.get_model().get_tasks_by_board(
-                    find_by_title(self.boards, board_name)
-                )
+            self.app.get_model().save_board(
+                find_by_title(self.boards, board_name)
             )
         except Exception:
             view.display_internal_error()
             return
-        print("\n".join(task.title for task in all_tasks))
+        self.app.show_view("tasks")

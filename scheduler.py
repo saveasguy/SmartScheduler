@@ -1,4 +1,4 @@
-from customtkinter import CTkFrame
+from customtkinter import CTkFrame, set_appearance_mode
 
 from scheduler import controllers, models, views
 
@@ -7,6 +7,7 @@ class App(controllers.IApp):
     def __init__(self):
         super().__init__()
         self.title("Smart Scheduler")
+        set_appearance_mode("dark")
         self.minsize(512, 512)
 
         self.frame: CTkFrame | None = None
@@ -19,6 +20,9 @@ class App(controllers.IApp):
 
         self.views["boards"] = views.BoardView
         self.controllers["boards"] = controllers.BoardController(self)
+
+        self.views["tasks"] = views.TasksView
+        self.controllers["tasks"] = None
 
         self.show_view("login")
 
