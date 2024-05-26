@@ -1,0 +1,30 @@
+name: Smart Scheduler Deploy CI
+
+on:
+  workflow_run:
+    workflows: Smart Scheduler Test CI
+    branches: main
+    types: completed
+
+jobs:
+  deploy:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+    - name: Install pipenv
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+
+    - name: Install dependencies
+      run: |
+        pipenv install --dev
+
+    - name: Deploy
+      run: |
+        echo "Deploy placeholder"

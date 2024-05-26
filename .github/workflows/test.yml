@@ -1,4 +1,4 @@
-name: Smart Scheduler CI
+name: Smart Scheduler Test CI
 
 on:
   push:
@@ -12,9 +12,7 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python 3.10
@@ -26,26 +24,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install pipenv
 
-    - id: cache-pipenv
-      uses: actions/cache@v1
-      with:
-        path: ~/.local/share/virtualenvs
-        key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
-
     - name: Install dependencies
-      if: steps.cache-pipenv.outputs.cache-hit != 'true'
       run: |
         pipenv install --dev
 
     - name: Lint
       run: |
-        doit lint
+        pipenv run doit lint
 
     - name: Test
       run: |
-        doit test
-
-    - name: Deploy
-      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-      run: |
-        echo "Deploy placeholder"
+        pipenv run doit test
