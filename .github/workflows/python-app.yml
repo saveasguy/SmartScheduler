@@ -39,11 +39,11 @@ jobs:
 
     - name: Lint
       run: |
-        doit lint
+        pipenv run doit lint
 
     - name: Test
       run: |
-        doit test
+        pipenv run doit test
 
     - name: Deploy
       if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
