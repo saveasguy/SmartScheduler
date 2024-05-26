@@ -6,7 +6,7 @@ from scheduler import controllers, models, views
 class App(controllers.IApp):
     def __init__(self):
         super().__init__()
-        self.title("Smart Scheduler")
+        self.title("Smart Scheduler21")
         self.minsize(512, 512)
 
         self.frame: CTkFrame | None = None
