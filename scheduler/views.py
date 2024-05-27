@@ -290,7 +290,7 @@ class TasksView(tk.CTkFrame):
             text=_("Get tasks"),
             font=PARAGRAPH_FONT,
             command=lambda: self.on_get_tasks(),
-        ).place(rely=0.9, relx=0.4, relwidth=0.2)
+        ).place(rely=0.9, relx=0.4, relwidth=0.4)
 
     def on_get_tasks(self):
         """Event happening on button pressed."""

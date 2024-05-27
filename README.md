@@ -9,12 +9,37 @@
 4. Составление расписание для произвольных промежутков времени
 
 ## Описание предполагаемых инструментов решения
-* Графический интерфейс: **PyQt5**
-* Работа с локальными пользовательскими данными: **SQLAlchemy**
-* Работа с YouGile API: **requests**
+* Графический интерфейс: **customtkinter**, **tkcalendar**
+* Работа с YouGile API: **yougile-api**
 * Дополнительная функциональность:
-    * **json**
-    * **unittest**
+    * **dataclasses**
+
+## Установка и запуск (из исходного кода)
+Сначала необходимо установить системные зависимости:
+```bash
+# Ubuntu
+sudo apt install python3-tk
+pip install pipenv
+```
+
+Далее необходимо перейти в виртуальное окружение командой:
+```bash
+pipenv shell
+```
+и установить зависимости для приложения:
+```bash
+pipenv install .
+```
+
+Для запуска необходимо запустить интерпретатор python3:
+```bash
+python3 scheduler.py
+```
 
 ## Макет интерфейса
-![photo_5206181721115058830_y](https://github.com/PaDarochek/SmartScheduler/assets/69221349/05c0afbf-93fb-4310-bdf9-35e193f7ba29)
+### Страница входа
+![image](https://github.com/saveasguy/SmartScheduler/assets/54277470/3dd79266-c455-4136-99cd-bbc6a0fc455b)
+### Страница выбора проекта и доски
+![image](https://github.com/saveasguy/SmartScheduler/assets/54277470/35f4e32a-3c4f-4330-a444-5462df5bd542)
+### Страница планирования задач
+![image](https://github.com/saveasguy/SmartScheduler/assets/54277470/261406c9-e9d4-407e-9d2f-c2e4389a08cd)
