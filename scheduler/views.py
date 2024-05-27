@@ -237,6 +237,10 @@ class ITasksController:
         """
         raise NotImplementedError()
 
+    def back_to_board_view(self):
+        """Go back to board view."""
+        raise NotImplementedError()
+
 
 class TasksView(tk.CTkFrame):
     """Tasks page implementation."""
@@ -258,8 +262,15 @@ class TasksView(tk.CTkFrame):
         self.controller = controller
 
         # Setup GUI
+        tk.CTkButton(
+            self,
+            text="<-",
+            font=HEADER2_FONT,
+            command=lambda: self.controller.back_to_board_view(),
+        ).place(rely=0.05, relx=0.05, relheight=0.05, relwidth=0.05)
+
         tk.CTkLabel(self, text=_("Tasks"), font=HEADER2_FONT).place(
-            rely=0.05, relwidth=1
+            rely=0.05, relx=0.2, relwidth=0.6
         )
 
         self.tasks_area = tk.CTkScrollableFrame(self)

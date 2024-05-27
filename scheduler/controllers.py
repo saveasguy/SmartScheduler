@@ -226,3 +226,7 @@ class TasksController(views.ITasksController):
                 )
             result_texts.append(text)
         return result_texts
+
+    def back_to_board_view(self):
+        """Go back to board view."""
+        self.app.show_view("boards")
