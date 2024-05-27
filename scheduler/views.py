@@ -3,6 +3,9 @@ import os
 from datetime import date
 from typing import List
 
+import gettext
+import os
+
 import customtkinter as tk
 from tkcalendar import DateEntry
 
