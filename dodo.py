@@ -1,13 +1,14 @@
 """Default: lint, test and create wheel"""
 
 import glob
+
 import tomli
 
 DOIT_CONFIG = {"default_tasks": ["lint", "test", "wheel"]}
 
 
 def dumpkeys(infile, table, outfile):
-    """Dumps TOML table keys one per line"""
+    """Dumps TOML table keys one per line."""
     with open(infile, "rb") as fin:
         full = tomli.load(fin)
     with open(outfile, "w") as fout:
@@ -101,7 +102,7 @@ def task_git_clean():
 
 
 def task_requirements():
-    """Dump Pipfile requirements"""
+    """Dump Pipfile requirements."""
     return {
         "actions": [(dumpkeys, ["Pipfile", "packages", "requirements.txt"])],
         "file_dep": ["Pipfile"],
