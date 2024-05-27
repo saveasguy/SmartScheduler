@@ -3,9 +3,6 @@ import os
 from datetime import date
 from typing import List
 
-import gettext
-import os
-
 import customtkinter as tk
 from tkcalendar import DateEntry
 
@@ -24,7 +21,17 @@ class ILoginController:
 
 
 class LoginView(tk.CTkFrame):
+    """Login page implementation."""
+
     def __init__(self, parent, controller: ILoginController):
+        """Init login page by it's controller.
+
+        :param parent: TCk parent instance
+        :type parent:
+        :param controller: instance implementing ILoginController
+            interface
+        :type controller: ILoginController
+        """
         tk.CTkFrame.__init__(self, parent)
 
         HEADER2_FONT = tk.CTkFont(size=22)
@@ -74,24 +81,59 @@ class LoginView(tk.CTkFrame):
         ).place(rely=0.68, relwidth=1)
 
     def handle_authorization_error(self):
+        """Display an error on a screen."""
         self.error.set(_("Failed to authorize!"))
 
 
 class IBoardController:
+    """Board controller interface to be used by BoardView."""
+
     def get_project_names(self) -> List[str]:
+        """Returns project names. Always requested by BoardView.
+
+        :return: list of project names
+        :rtype: List[str]
+        """
         raise NotImplementedError()
 
     def get_board_names_by_project_name(
         self, view, project_name: str
     ) -> List[str]:
+        """Given the project name returns list of borad names to display in
+        BoardView.
+
+        :param view: the view
+        :type view: views.BoardView
+        :param project_name: project name
+        :type project_name: str
+        :return: list of board names
+        :rtype: List[str]
+        """
         raise NotImplementedError()
 
     def on_choose_board(self, view, board: str):
+        """Given a board move to TasksView.
+
+        :param view: the view
+        :type view: views.BoardView
+        :param board_name: board name
+        :type board_name: str
+        """
         raise NotImplementedError()
 
 
 class BoardView(tk.CTkFrame):
+    """Implementation of board page."""
+
     def __init__(self, parent, controller: IBoardController):
+        """Init board page by it's controller.
+
+        :param parent: TCk parent instance
+        :type parent:
+        :param controller: instance implementing IBoardController
+            interface
+        :type controller: IBoardController
+        """
         tk.CTkFrame.__init__(self, parent)
 
         HEADER2_FONT = tk.CTkFont(size=22)
@@ -158,25 +200,56 @@ class BoardView(tk.CTkFrame):
             )
         )
 
-    def on_board_choice(self, choice):
+    def on_board_choice(self, choice: str):
+        """Set the board chosen.
+
+        :param choice: chosen board
+        :type choice: str
+        """
         self.selected_board = choice
 
     def display_internal_error(self):
+        """Display an error on a screen."""
         self.error.set(_("Internal error!"))
 
     def display_no_board_chosen(self):
+        """Display no board chosen error on a screen."""
         self.error.set(_("Board is not chosen!"))
 
 
 class ITasksController:
+    """Tasks controller interface to be implemented."""
+
     def get_filtered_tasks(
         self, view, begin_date: date, end_date: date
     ) -> List[str]:
+        """Get card texts by the begin and end dates. Should be called from
+        TasksView.
+
+        :param view: the view
+        :type view: views.TasksView
+        :param begin_date: the begin date
+        :type begin_date: date
+        :param end_date: the end date
+        :type end_date: date
+        :return: list of card texts
+        :rtype: List[str]
+        """
         raise NotImplementedError()
 
 
 class TasksView(tk.CTkFrame):
-    def __init__(self, parent, controller):
+    """Tasks page implementation."""
+
+    def __init__(self, parent, controller: ITasksController):
+        """Initialize the page by the instance of ITasksController.
+
+        :param parent: CTk parent
+        :type parent:
+        :param controller: instance of implemented ITasksController
+            interface
+        :type controller: ITasksController
+        """
         tk.CTkFrame.__init__(self, parent)
 
         HEADER2_FONT = tk.CTkFont(size=22)
@@ -220,6 +293,7 @@ class TasksView(tk.CTkFrame):
         ).place(rely=0.9, relx=0.4, relwidth=0.2)
 
     def on_get_tasks(self):
+        """Event happening on button pressed."""
         PARAGRAPH_FONT = tk.CTkFont(size=16)
 
         new_task_texts = self.controller.get_filtered_tasks(
@@ -243,6 +317,7 @@ class TasksView(tk.CTkFrame):
             task.pack(fill="x", padx=5, pady=5)
 
     def on_error(self):
+        """Print error on a screen."""
         PARAGRAPH_FONT = tk.CTkFont(size=16)
 
         self.tasks = [

@@ -1,12 +1,8 @@
 import locale
 
 from customtkinter import CTkFrame, set_appearance_mode
-import locale
 
 from scheduler import controllers, models, views
-
-locale.setlocale(locale.LC_ALL, locale.getdefaultlocale())
-
 
 locale.setlocale(locale.LC_ALL, locale.getdefaultlocale())
 
