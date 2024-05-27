@@ -3,9 +3,6 @@ import locale
 import os
 from datetime import date, datetime, time
 from typing import List
-import gettext
-import os
-import locale
 
 from customtkinter import CTk
 
@@ -20,10 +17,20 @@ _ = translation.gettext
 
 
 class IApp(CTk):
+    """Interface of application to be used in controllers."""
+
     def __init__(self):
+        """Constructor."""
         super().__init__()
 
     def get_model(self) -> models.AppLogicModel:
+        """This method provides access to the logic model of the app.
+
+        :raises NotImplementedError: interface is not intended to be
+            called
+        :return: return the instance of models.AppLogicModel
+        :rtype: models.AppLogicModel
+        """
         raise NotImplementedError()
 
     def show_view(self, id: str):
@@ -36,7 +43,15 @@ class IApp(CTk):
 
 
 class LoginController(views.ILoginController):
+    """Controller implementing communication between LoginView and models."""
+
     def __init__(self, app: IApp):
+        """Constructor initializing controller by the instance of implemented
+        IApp interface.
+
+        :param app: the instance of implemented IApp interface
+        :type app: IApp
+        """
         self.app = app
 
     def on_auth(self, view: views.LoginView):
@@ -81,18 +96,40 @@ def find_by_title(
 
 
 class BoardController(views.IBoardController):
+    """COntroller implementing communication between BoardView and models."""
+
     def __init__(self, app: IApp):
+        """Constructor initializing controller with the instance of app.
+
+        :param app: instance of the implemented interface IApp
+        :type app: IApp
+        """
         self.app = app
         self.projects: List[data_structures.Project] = []
         self.boards: List[data_structures.Board] = []
 
     def get_project_names(self) -> List[str]:
+        """Returns project names. Always requested by BoardView.
+
+        :return: list of project names
+        :rtype: List[str]
+        """
         self.projects = self.app.get_model().get_projects()
         return [prj.title for prj in self.projects]
 
     def get_board_names_by_project_name(
         self, view: views.BoardView, project_name: str
     ) -> List[str]:
+        """Given the project name returns list of borad names to display in
+        BoardView.
+
+        :param view: the view
+        :type view: views.BoardView
+        :param project_name: project name
+        :type project_name: str
+        :return: list of board names
+        :rtype: List[str]
+        """
         try:
             self.boards = self.app.get_model().get_boards_by_project(
                 find_by_title(self.projects, project_name)
@@ -103,6 +140,13 @@ class BoardController(views.IBoardController):
         return [board.title for board in self.boards]
 
     def on_choose_board(self, view: views.BoardView, board_name: str):
+        """Given a board name execute the app logic and move to TasksView.
+
+        :param view: the view
+        :type view: views.BoardView
+        :param board_name: board name
+        :type board_name: str
+        """
         if not board_name:
             view.display_no_board_chosen()
             return
@@ -117,12 +161,31 @@ class BoardController(views.IBoardController):
 
 
 class TasksController(views.ITasksController):
+    """Controller implementing communication between TasksView and models."""
+
     def __init__(self, app: IApp):
+        """Constructor initializing the instance by app.
+
+        :param app: instance of implemented IApp interface
+        :type app: IApp
+        """
         self.app = app
 
     def get_filtered_tasks(
         self, view: views.TasksView, begin_date: date, end_date: date
     ) -> List[str]:
+        """Get card texts by the begin and end dates. Should be called from
+        TasksView.
+
+        :param view: the view
+        :type view: views.TasksView
+        :param begin_date: the begin date
+        :type begin_date: date
+        :param end_date: the end date
+        :type end_date: date
+        :return: list of card texts
+        :rtype: List[str]
+        """
         begin_date = datetime.combine(
             begin_date, time(hour=0, minute=0, second=0)
         )
